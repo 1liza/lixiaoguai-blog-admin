@@ -27,16 +27,29 @@ module.exports = {
   publicPath: '/',
   outputDir: 'dist',
   assetsDir: 'static',
-  lintOnSave: process.env.NODE_ENV === 'development',
+  // lintOnSave: process.env.NODE_ENV === 'development',
+  // lintOnSave:设置是否包含ESLint校验
+  lintOnSave: false,
   productionSourceMap: false,
   devServer: {
     port: port,
-    open: true,
+    open: false,
     overlay: {
       warnings: false,
       errors: true
     },
-    before: require('./mock/mock-server.js')
+    before: require('./mock/mock-server.js'),
+    // 解决跨域问题
+    proxy: {
+      [process.env.VUE_APP_BASE_API]: { // 以/dev-api开头的代理到target
+        // 加中括号让变量作为key值
+        target: ' https://mock.mengxuegu.com/mock/611b61ee5b12aa4b0b3cab88/bolg-admin',
+        changeOrigin: true, // 开启代理服务器
+        pathRewrite: {
+          ['^' + process.env.VUE_APP_BASE_API]: ''// 把/dev-api替换为空
+        }
+      }
+    }
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that

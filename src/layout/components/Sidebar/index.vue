@@ -12,7 +12,7 @@
         :collapse-transition="false"
         mode="vertical"
       >
-        <sidebar-item v-for="route in routes" :key="route.path" :item="route" :base-path="route.path" />
+        <sidebar-item v-for="route in routes" :key="route.name" :item="route" :base-path="route.path" />
       </el-menu>
     </el-scrollbar>
   </div>
@@ -32,6 +32,7 @@ export default {
     ]),
     routes() {
       return this.$router.options.routes
+    //  Breadcrumb.spec.js
     },
     activeMenu() {
       const route = this.$route
@@ -44,6 +45,7 @@ export default {
     },
     showLogo() {
       return this.$store.state.settings.sidebarLogo
+    //  指向src/settings.js vuex
     },
     variables() {
       return variables
