@@ -88,3 +88,19 @@ Modern browsers and Internet Explorer 10+.
 [MIT](https://github.com/PanJiaChen/vue-admin-template/blob/master/LICENSE) license.
 
 Copyright (c) 2017-present PanJiaChen
+
+## 笔记
+
+### el-table
+- el-table元素用于布局非常方便，在 Form 组件中，每一个表单域由一个 Form-Item 组件构成
+- el-table数据一般都是包含在一个object中，即赋值给:model的对象，el-form-item并不涉及数据，而是el-form-item内部的各种元素v-model
+
+### el-select
+- v-model的值为当前被选中的el-option的 value 属性值
+- el-select的v-model于el-option的:value无关
+- v-model必须设置初值，否则无法将值放入选框中
+- input的v-model同理
+
+### v-bind
+- 正确使用v-bind，：后变量是在子组件中的名称，也就是子组件中props的名称；=后面的变量是目前父组件中的变量
+

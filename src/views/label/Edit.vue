@@ -57,8 +57,7 @@ export default {
       default: ''
     },
     formData: {
-      type: Object,
-      default: {}
+      type: Object
     },
     remoteClose: Function
   },
