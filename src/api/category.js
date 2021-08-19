@@ -17,5 +17,25 @@ export default {
       method: 'post',
       data: data
     })
+  },
+  getById(id) {
+    return request({
+      url: `/article/category/${id}`,
+      // 有变量的时候需要使用反单引号
+      method: 'get'
+    })
+  },
+  update(data) {
+    return request({
+      url: '/article/category',
+      method: 'put',
+      data: data
+    })
+  },
+  deleteById(id) {
+    return request({
+      url: `/article/label/${id}`,
+      method: 'delete'
+    })
   }
 }

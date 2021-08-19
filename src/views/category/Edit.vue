@@ -9,7 +9,7 @@
       label-position="right"
       style="width: 400px"
     >
-      <el-form-item label="分类名称:">
+      <el-form-item label="分类名称:" prop="name">
         <el-input v-model="formData.name" />
       </el-form-item>
       <el-form-item label="状态:" prop="status">
@@ -35,7 +35,7 @@
         />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" size="mini" @click="submitForm(formData)">
+        <el-button type="primary" size="mini" @click="submitForm('formData')">
           确定</el-button>
         <el-button size="mini" @click="handleClose">取消</el-button>
       </el-form-item>
@@ -98,7 +98,12 @@ export default {
       })
     },
     async submitData() {
-      const response = await api.addList(this.formData)
+      let response = null
+      if (this.formData.id) {
+        response = await api.update(this.formData)
+      } else {
+        response = await api.addList(this.formData)
+      }
       if (response.code === 20000) {
         this.$message({
           message: '保存成功',

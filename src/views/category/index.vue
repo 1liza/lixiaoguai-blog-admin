@@ -71,12 +71,12 @@
         <template slot-scope="scope">
           <el-button
             size="mini"
-            @click="handleEdit(scope.$index, scope.row)"
+            @click="handleEdit(scope.row.id)"
           >编辑</el-button>
           <el-button
             size="mini"
             type="danger"
-            @click="handleDelete(scope.$index, scope.row)"
+            @click="handleDelete(scope.row.id)"
           >删除</el-button>
         </template>
       </el-table-column>
@@ -173,6 +173,35 @@ export default {
     onAdd() {
       this.edit.visible = true
       this.edit.title = '新增'
+    },
+    handleEdit(id) {
+      api.getById(id).then(response => {
+        if (response.code === 20000) {
+          this.edit.formData = response.data
+          this.edit.visible = true
+          this.edit.title = '编辑'
+        }
+      })
+    },
+    handleDelete(id) {
+      this.$confirm('确认删除这条记录吗？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        // 确认
+        api.deleteById(id).then(response => {
+          // 提示信息
+          this.$message({
+            type: response.code === 20000 ? 'success' : 'error',
+            message: response.message
+          })
+          // 刷新列表
+          this.fetchData()
+        })
+      }).catch(() => {
+        // 取消删除，不理会
+      })
     }
   }
 }
