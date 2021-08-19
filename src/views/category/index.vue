@@ -1,6 +1,6 @@
 <template>
   <div class="category-container">
-<!--    搜索栏-->
+    <!--    搜索栏-->
     <el-form :model="query" :inline="true">
       <el-form-item label="分类名称">
         <el-input v-model="query.name" size="mini" />
@@ -25,7 +25,7 @@
         <el-button size="mini" type="primary" icon="el-icon-circle-plus-outline" @click="onAdd">新增</el-button>
       </el-form-item>
     </el-form>
-<!--    表单-->
+    <!--    表单-->
     <el-table
       :data="list"
       border
@@ -82,7 +82,7 @@
         </template>
       </el-table-column>
     </el-table>
-<!--    分页-->
+    <!--    分页-->
     <div class="block">
       <el-pagination
         :current-page="page.current"
@@ -98,8 +98,8 @@
     <edit
       :title="edit.title"
       :visible="edit.visible"
-      :formData="edit.formData"
-      :remoteClose="remoteClose"
+      :form-data="edit.formData"
+      :remote-close="remoteClose"
     />
 
   </div>
@@ -133,7 +133,7 @@ export default {
         formData: {
           id: null,
           name: '',
-          sort: '',
+          sort: undefined,
           remark: '',
           status: ''
         }

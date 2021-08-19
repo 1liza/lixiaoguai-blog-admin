@@ -104,3 +104,5 @@ Copyright (c) 2017-present PanJiaChen
 ### v-bind
 - 正确使用v-bind，：后变量是在子组件中的名称，也就是子组件中props的名称；=后面的变量是目前父组件中的变量
 
+### el-input-number
+-如果想要默认不显示，则值定义为undefined

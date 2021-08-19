@@ -37,5 +37,11 @@ export default {
       url: `/article/label/${id}`,
       method: 'delete'
     })
+  },
+  getNormalList() {
+    return request({
+      url: '/article/category/list',
+      method: 'get'
+    })
   }
 }

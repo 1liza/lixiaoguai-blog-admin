@@ -1,8 +1,8 @@
 <template>
   <el-dialog title="title" :visible.sync="visible" :before-close="handleClose" width="500px">
     <el-form
-      :rules="rules"
       ref="formData"
+      :rules="rules"
       status-icon
       :model="formData"
       label-width="100px"
@@ -22,8 +22,6 @@
         <el-input-number
           v-model="formData.sort"
           style="width: 300px;"
-          :min="1"
-          :max="10000"
         />
       </el-form-item>
       <el-form-item label="备注:" prop="remark">
@@ -92,8 +90,10 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
+        // 校验通过，提交数据
           this.submitData()
         } else {
+        // 验证不通过
           return false
         }
       })

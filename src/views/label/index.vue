@@ -8,7 +8,7 @@
       <el-form-item label="分类名称">
         <el-select v-model="query.categoryName" clearable size="mini" placeholder="请选择">
           <el-option
-            v-for="item in statusOptions"
+            v-for="item in categoryList"
             :key="item.code"
             :label="item.name"
             :value="item.code"
@@ -75,13 +75,25 @@
         @current-change="handleCurrentChange"
       />
     </div>
+    <!--    弹窗-->
+    <Edit
+      :form-data="edit.formData"
+      :visible="edit.visible"
+      :title="edit.title"
+      :remote-close="remoteClose"
+      :category-list="categoryList"
+    />
   </div>
 </template>
 
 <script>
 import api from '@/api/label'
-
+import categoryApi from '@/api/category'
+import Edit from './Edit'
 export default {
+  components: {
+    Edit
+  },
   data() {
     return {
       list: {},
@@ -89,11 +101,20 @@ export default {
         current: 1,
         size: 20
       },
-      query: {}
+      query: {},
+      edit: {
+        visible: false,
+        title: '',
+        formData: {
+          categoryName: null
+        }
+      },
+      categoryList: []
     }
   },
   created() {
     this.fetchData()
+    this.getCategoryList()
   },
   methods: {
     fetchData() {
@@ -119,7 +140,49 @@ export default {
       this.fetchData()
     },
     onAdd() {
-
+      this.edit.visible = true
+      this.edit.title = '新增'
+    },
+    remoteClose() {
+      this.edit.formData = {}
+      this.edit.visible = false
+      this.fetchData()
+    },
+    getCategoryList() {
+      categoryApi.getNormalList().then(response => {
+        this.categoryList = response.data
+      })
+    },
+    handleEdit(id) {
+      // console.log('编辑', id)
+      api.getById(id).then(response => {
+        if (response.code === 20000) {
+          this.edit.formData = response.data
+          // 弹出窗口
+          this.edit.visible = true
+          this.edit.title = '编辑'
+        }
+      })
+    },
+    handleDelete(id) {
+      this.$confirm('确认删除这条记录吗？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        // 确认
+        api.deleteById(id).then(response => {
+          // 提示信息
+          this.$message({
+            type: response.code === 20000 ? 'success' : 'error',
+            message: response.message
+          })
+          // 刷新列表
+          this.fetchData()
+        })
+      }).catch(() => {
+        // 取消删除，不理会
+      })
     }
   }
 }
