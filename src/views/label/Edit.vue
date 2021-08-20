@@ -56,10 +56,10 @@ export default {
     return {
       rules: { // 校验规则
         name: [ // 与 el-form-item 标签的 prop 属性值对应
-          { required: true, message: '请输入分类名称', trigger: 'blur' }
+          { required: true, message: '请输入标签名称', trigger: 'blur' }
         ],
         categoryName: [
-          { required: true, message: '请输入标签名称', trigger: 'change' }
+          { required: true, message: '请选择状态', trigger: 'change' }
         ]
       }
     }

@@ -34,7 +34,7 @@ export default {
   },
   deleteById(id) {
     return request({
-      url: `/article/label/${id}`,
+      url: `/article/category/${id}`,
       method: 'delete'
     })
   },

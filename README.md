@@ -99,6 +99,7 @@ Copyright (c) 2017-present PanJiaChen
 - v-model的值为当前被选中的el-option的 value 属性值
 - el-select的v-model于el-option的:value无关
 - v-model必须设置初值，否则无法将值放入选框中
+- 但是如果只是显示，不能进行输入，则不能定义v-model
 - input的v-model同理
 
 ### v-bind
@@ -106,3 +107,8 @@ Copyright (c) 2017-present PanJiaChen
 
 ### el-input-number
 -如果想要默认不显示，则值定义为undefined
+
+### 易错点
+- 属性有没有'：'
+### TODO
+edit的title无法传入
