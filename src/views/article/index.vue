@@ -31,32 +31,32 @@
       stripe
       style="width: 100%"
     >
-<!--      序号-->
+      <!--      序号-->
       <el-table-column
         type="index"
         label="序号"
         width="60"
         align="center"
       />
-<!--      文章标题-->
+      <!--      文章标题-->
       <el-table-column
         prop="title"
         align="center"
         label="文章标题"
       />
-<!--      浏览数-->
+      <!--      浏览数-->
       <el-table-column
         prop="viewCount"
         align="center"
         label="浏览数"
       />
-<!--      点赞数-->
+      <!--      点赞数-->
       <el-table-column
         prop="thumhup"
         align="center"
         label="点赞数"
       />
-<!--      是否公开-->
+      <!--      是否公开-->
       <el-table-column
         prop="ispublic"
         align="center"
@@ -71,7 +71,7 @@
           </el-tag>
         </template>
       </el-table-column>
-<!--      状态-->
+      <!--      状态-->
       <el-table-column
         prop="status"
         align="center"
@@ -84,15 +84,18 @@
           <el-tag v-if="scope.row.status === 0" type="danger" plain>已删除</el-tag>
         </template>
       </el-table-column>
-<!--      最后更新时间-->
+      <!--      最后更新时间-->
       <el-table-column
         prop="updateDate"
         align="center"
         label="最后更新时间"
       />
-<!--      操作-->
-      <el-table-column label="操作" align="left"
-                       width="210">
+      <!--      操作-->
+      <el-table-column
+        label="操作"
+        align="left"
+        width="210"
+      >
         <template slot-scope="scope">
           <el-button
             size="mini"
@@ -128,7 +131,7 @@
     </div>
     <!--    弹窗-->
     <edit
-      :title="edit.title"
+      :title="edit.diaTitle"
       :visible="edit.visible"
       :form-data="edit.formData"
       :check="edit.check"
@@ -142,14 +145,14 @@
 import api from '@/api/article'
 import Edit from './Edit'
 const publishOptions = [
-  {code: 0, name: '不公开'},
-  {code: 1, name: '公开'}
+  { code: 0, name: '不公开' },
+  { code: 1, name: '公开' }
 ]
 const statusOptions = [
-  {code: 0, name: '已删除'},
-  {code: 1, name: '未审核'},
-  {code: 2, name: '审核未通过'},
-  {code: 3, name: '审核已通过'}
+  { code: 0, name: '已删除' },
+  { code: 1, name: '未审核' },
+  { code: 2, name: '审核未通过' },
+  { code: 3, name: '审核已通过' }
 ]
 export default {
   components: {
@@ -169,7 +172,7 @@ export default {
       code: '',
       edit: {
         visible: false,
-        title: '',
+        diaTitle: '',
         formData: {},
         check: false
       }
@@ -210,7 +213,7 @@ export default {
       api.getById(id).then(response => {
         if (response.code === 20000) {
           this.edit.formData = response.data
-          this.edit.title = '文章详情'
+          this.edit.diaTitle = '文章详情'
           this.edit.visible = true
         }
       })
@@ -221,7 +224,7 @@ export default {
           this.edit.formData = response.data
           this.edit.visible = true
           this.edit.check = true
-          this.edit.title = '审核文章'
+          this.edit.diaTitle = '审核文章'
         }
       })
     },

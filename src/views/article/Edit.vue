@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="title" :visible.sync="visible" :before-close="handleClose" width="70%">
+  <el-dialog :title="title" :visible.sync="visible" :before-close="handleClose" width="70%">
     <el-form
       ref="formData"
       status-icon
@@ -17,8 +17,13 @@
       </el-form-item>
       <!--      标签-->
       <el-form-item label="标签:" prop="labelIds">
-        <el-imput
-          :disable="true"
+        <el-cascader
+          disabled
+          style="display: block"
+          v-model="formData.labelIds"
+          :options="labeloptions"
+          :props="{ multiple: true, emitPath: false, children: 'labelList', value: 'id',
+label: 'name'}"
         />
       </el-form-item>
       <!--      主图-->
@@ -64,6 +69,7 @@
 import api from '@/api/article'
 import { mavonEditor } from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
+import categoryApi from '@/api/category'
 
 export default {
   props: {
@@ -73,7 +79,7 @@ export default {
     },
     title: {
       type: String,
-      default: ''
+      default: '12'
     },
     formData: {
       type: Object,
@@ -119,6 +125,15 @@ export default {
         /* 2.2.1 */
         subfield: true, // 单双栏模式
         preview: true, // 预览
+      },
+      labeloptions: []
+    }
+  },
+  watch: {
+    visible(val) {
+      if(val) {
+        this.getLabelOptions()
+        this.getArticleById()
       }
     }
   },
@@ -154,7 +169,23 @@ export default {
           })
           this.remoteClose()
         })
-      }).catch(()=>{})
+      }).catch(() => {})
+    },
+    handleClose() {
+      this.$refs['formData'].resetFields()
+      this.remoteClose()
+    },
+    getArticleById() {
+// 通过Id查询数据
+      api.getById(this.id).then(response => {
+        this.formData = response.data
+      })
+    },
+    getLabelOptions() {
+      // es6语法，不要少了 async， await
+      categoryApi.getCategoryAndLabel().then(response => {
+        this.labelOptions = response.data
+      })
     }
   }
 }

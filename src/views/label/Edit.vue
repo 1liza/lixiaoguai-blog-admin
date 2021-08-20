@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="title" :visible.sync="visible" :before-close="handleClose" width="500px">
+  <el-dialog :title="title" :visible.sync="visible" :before-close="handleClose" width="500px">
     <el-form
       :rules="rules"
       ref="formData"
@@ -37,7 +37,8 @@ import api from '@/api/label'
 export default {
   props: {
     categoryList: {
-      type: Array
+      type: Array,
+      default: () => []
     },
     visible: {
       type: Boolean,
@@ -48,7 +49,8 @@ export default {
       default: ''
     },
     formData: {
-      type: Object
+      type: Object,
+      default: () => {}
     },
     remoteClose: Function
   },
@@ -65,13 +67,6 @@ export default {
     }
   },
   methods: {
-    // handleClose(done) {
-    //   this.$confirm('确认关闭？')
-    //     .then(_ => {
-    //       this.remoteClose()
-    //     })
-    //     .catch(_ => {})
-    // },
     handleClose(done) {
       this.$refs['formData'].resetFields()
       this.remoteClose()

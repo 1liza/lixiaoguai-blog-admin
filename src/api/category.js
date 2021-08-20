@@ -43,5 +43,11 @@ export default {
       url: '/article/category/list',
       method: 'get'
     })
+  },
+  getCategoryAndLabel() {
+    return request({
+      url: `/article/category/label/list`,
+      method: 'get'
+    })
   }
 }

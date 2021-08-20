@@ -109,6 +109,14 @@ Copyright (c) 2017-present PanJiaChen
 -如果想要默认不显示，则值定义为undefined
 
 ### 易错点
-- 属性有没有'：'
+- 属性如果在'：'后面，则表示属性是动态赋值，如果没有':'则属性直接赋值为变量
+- 
+### must be function
+Type of the default value for ‘ItemLists‘ prop must be a function
+https://blog.csdn.net/qyl_0316/article/details/104450863
+
+Invalid prop: type check failed for prop "data". Expected Array, got Object
+https://blog.csdn.net/niaonao/article/details/98593460
+接收的数据类型弄清楚
 ### TODO
 edit的title无法传入

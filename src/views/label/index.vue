@@ -9,9 +9,9 @@
         <el-select v-model="query.categoryName" clearable size="mini" placeholder="请选择">
           <el-option
             v-for="item in categoryList"
-            :key="item.code"
+            :key="item.id"
             :label="item.name"
-            :value="item.code"
+            :value="item.id"
           />
         </el-select>
       </el-form-item>
@@ -49,7 +49,7 @@
         align="center"
         label="分类名称"
       />
-      <el-table-column label="操作" align="center">
+      <el-table-column label="操作" a1lign="center">
         <template slot-scope="scope">
           <el-button
             size="mini"
@@ -96,7 +96,7 @@ export default {
   },
   data() {
     return {
-      list: {},
+      list: [],
       page: {
         current: 1,
         size: 20
@@ -106,7 +106,6 @@ export default {
         visible: false,
         title: '',
         formData: {
-          categoryName: null
         }
       },
       categoryList: []
