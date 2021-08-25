@@ -18,12 +18,12 @@
       <!--      标签-->
       <el-form-item label="标签:" prop="labelIds">
         <el-cascader
+          v-model="formData.labelIds"
           disabled
           style="display: block"
-          v-model="formData.labelIds"
-          :options="labeloptions"
+          :options="labelOptions"
           :props="{ multiple: true, emitPath: false, children: 'labelList', value: 'id',
-label: 'name'}"
+                    label: 'name'}"
         />
       </el-form-item>
       <!--      主图-->
@@ -36,8 +36,8 @@ label: 'name'}"
       <!--      是否公开-->
       <el-form-item label="是否公开:">
         <el-radio-group v-model="formData.ispublic" disabled>
-          <el-radio :label='1'>公开</el-radio>
-          <el-radio :label='0'>不公开</el-radio>
+          <el-radio :label="1">公开</el-radio>
+          <el-radio :label="0">不公开</el-radio>
         </el-radio-group>
       </el-form-item>
       <!--      简介-->
@@ -52,8 +52,10 @@ label: 'name'}"
       <!--      内容-->
       <el-form-item label="内容:">
         <mavon-editor
-          v-model="formData.htmlContent"
+          ref="md"
+          v-model="formData.mdContent"
           :toolbars="markdownOption"
+          :editable="false"
         />
       </el-form-item>
       <el-form-item v-if="check" align="center">
@@ -72,6 +74,9 @@ import 'mavon-editor/dist/css/index.css'
 import categoryApi from '@/api/category'
 
 export default {
+  components: {
+    mavonEditor
+  },
   props: {
     visible: {
       type: Boolean,
@@ -124,21 +129,18 @@ export default {
         alignright: true, // 右对齐
         /* 2.2.1 */
         subfield: true, // 单双栏模式
-        preview: true, // 预览
+        preview: true // 预览
       },
-      labeloptions: []
+      labelOptions: []
     }
   },
   watch: {
     visible(val) {
-      if(val) {
+      if (val) {
         this.getLabelOptions()
         this.getArticleById()
       }
     }
-  },
-  components: {
-    mavonEditor
   },
   methods: {
     auditSuccess() {
@@ -176,7 +178,7 @@ export default {
       this.remoteClose()
     },
     getArticleById() {
-// 通过Id查询数据
+      // 通过Id查询数据
       api.getById(this.id).then(response => {
         this.formData = response.data
       })

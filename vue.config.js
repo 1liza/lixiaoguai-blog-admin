@@ -44,6 +44,7 @@ module.exports = {
       [process.env.VUE_APP_BASE_API]: { // 以/dev-api开头的代理到target
         // 加中括号让变量作为key值
         target: ' https://mock.mengxuegu.com/mock/611b61ee5b12aa4b0b3cab88/bolg-admin',
+        // target: 'https://www.fastmock.site/mock/d2f186e6e8e6446e72eff7573cc83c5e/blog-admin',
         changeOrigin: true, // 开启代理服务器
         pathRewrite: {
           ['^' + process.env.VUE_APP_BASE_API]: ''// 把/dev-api替换为空

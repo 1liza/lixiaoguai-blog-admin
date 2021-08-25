@@ -97,6 +97,7 @@ Copyright (c) 2017-present PanJiaChen
 
 ### el-select
 - v-model的值为当前被选中的el-option的 value 属性值
+- prop	表单域 model 字段，在使用 validate、resetFields 方法的情况下，该属性是必填的
 - el-select的v-model于el-option的:value无关
 - v-model必须设置初值，否则无法将值放入选框中
 - 但是如果只是显示，不能进行输入，则不能定义v-model
@@ -110,7 +111,9 @@ Copyright (c) 2017-present PanJiaChen
 
 ### 易错点
 - 属性如果在'：'后面，则表示属性是动态赋值，如果没有':'则属性直接赋值为变量
-- 
+- el-radio元素的属性 :label，是带有':'
+- 打开多个重名文件要小心
+- 写类似组件时，复制原有代码需要注意
 ### must be function
 Type of the default value for ‘ItemLists‘ prop must be a function
 https://blog.csdn.net/qyl_0316/article/details/104450863
@@ -118,5 +121,15 @@ https://blog.csdn.net/qyl_0316/article/details/104450863
 Invalid prop: type check failed for prop "data". Expected Array, got Object
 https://blog.csdn.net/niaonao/article/details/98593460
 接收的数据类型弄清楚
+
+### chrome
+- 之前开发移动端，调试总打开手机模式，结果现在开发者模式无法打开网页模式
+- easy mock在chrome页无法正常预览，数据也无法加载，在其他浏览器无事
+  找到easy mock 对应接口，发现数据无法正常获取，打开控制台，发现错误为Failed to load resource: net::ERR_BLOCKED_BY_CLIENT
+  数据请求被adclock屏蔽，暂停easy mock页面的广告拦截，发现可以正常获取数据，但是广告页仍然无法显示
+  关闭本地页面的adblock屏蔽，页面最终正常显示
+- chrome打开“广告管理”页总是不停跳转，在其他浏览器无事
+同上，关闭adblock可以解决
+
 ### TODO
 edit的title无法传入

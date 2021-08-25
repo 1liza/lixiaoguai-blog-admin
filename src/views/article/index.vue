@@ -222,6 +222,7 @@ export default {
       api.getById(id).then(response => {
         if (response.code === 20000) {
           this.edit.formData = response.data
+          console.log(this.edit.formData)
           this.edit.visible = true
           this.edit.check = true
           this.edit.diaTitle = '审核文章'

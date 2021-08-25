@@ -49,7 +49,7 @@
         align="center"
         label="分类名称"
       />
-      <el-table-column label="操作" a1lign="center">
+      <el-table-column label="操作" align="center">
         <template slot-scope="scope">
           <el-button
             size="mini"
