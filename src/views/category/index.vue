@@ -22,7 +22,7 @@
         <el-button size="mini" icon="el-icon-refresh" @click="onReset">重置</el-button>
       </el-form-item>
       <el-form-item>
-        <el-button size="mini" type="primary" icon="el-icon-circle-plus-outline" @click="onAdd">新增</el-button>
+        <el-button v-permission="'advert:add'" size="mini" type="primary" icon="el-icon-circle-plus-outline" @click="onAdd">新增</el-button>
       </el-form-item>
     </el-form>
     <!--    表单-->

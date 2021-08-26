@@ -1,7 +1,13 @@
 import axios from 'axios'
-import { MessageBox, Message } from 'element-ui'
+import {
+  MessageBox,
+  Message
+} from 'element-ui'
 import store from '@/store'
-import { getToken } from '@/utils/auth'
+import {
+  PcCookie,
+  Key
+} from '@/utils/cookie' // 对 cookie 操作
 
 // create an axios instance
 const service = axios.create({
@@ -15,11 +21,16 @@ service.interceptors.request.use(
   config => {
     // do something before request is sent
 
-    if (store.getters.token) {
+    /* if (store.getters.token) {
       // let each request carry token
       // ['X-Token'] is a custom headers key
       // please modify it according to the actual situation
       config.headers['X-Token'] = getToken()
+    } */
+    const accessTokenKey = PcCookie.get(Key.accessTokenKey)
+    if (accessTokenKey) {
+      // 针对每个请求，请求头带上令牌 Authorization: Bearer token
+      config.headers.Authorization = 'Bearer ' + accessTokenKey
     }
     return config
   },
@@ -35,7 +46,7 @@ service.interceptors.response.use(
   /**
    * If you want to get http information such as headers or status
    * Please return  response => response
-  */
+   */
 
   /**
    * Determine the request status by custom code
@@ -72,13 +83,30 @@ service.interceptors.response.use(
     }
   },
   error => {
-    console.log('err' + error) // for debug
-    Message({
-      message: error.message,
-      type: 'error',
-      duration: 5 * 1000
-    })
-    return Promise.reject(error)
+    if (error.response && error.response.status !== 401) {
+      Message({
+        message: error.message,
+        type: 'error',
+        duration: 5 * 1000
+      })
+      return Promise.reject(error)
+    }
+    // 401 发送刷新令牌请求锁， 防止并发重复请求,
+    // true 还未请求，false 正在请求刷新
+    let isLock = true
+    if (isLock && PcCookie.get(Key.refreshTokenKey)) {
+      // 有刷新令牌，防止并发重复请求刷新，
+      isLock = false
+      // 通过刷新令牌获取新令牌，
+      window.location.href =
+        `${process.env.VUE_APP_AUTH_CENTER_URL}/refresh?
+      redirectURL=${window.location.href}`
+    } else {
+      // 没有刷新令牌，则跳转认证客户端
+      window.location.href =
+        `${process.env.VUE_APP_AUTH_CENTER_URL}?redirectURL=${window.location.href}`
+    }
+    return Promise.reject('令牌过期，重新认证')
   }
 )
 

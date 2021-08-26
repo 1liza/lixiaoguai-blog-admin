@@ -5,6 +5,11 @@ const getters = {
   avatar: state => state.user.avatar,
   name: state => state.user.name,
   visitedViews: state => state.tagsView.visitedViews,
-  cachedViews: state => state.tagsView.cachedViews
+  cachedViews: state => state.tagsView.cachedViews,
+
+  // 菜单按钮权限状态
+  init: state => state.menu.init,
+  menuList: state => state.menu.menuList,
+  buttonList: state => state.menu.buttonList
 }
 export default getters
