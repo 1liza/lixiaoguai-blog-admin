@@ -28,9 +28,8 @@ const actions = {
   }) {
     return new Promise((resolve, reject) => {
       // 获取用户id,注意是uid
-      console.log(PcCookie.get(Key.userInfoKey))
       const userId = PcCookie.get(Key.userInfoKey)
-        ? PcCookie.get(Key.userInfoKey).uid : null
+        ? JSON.parse(PcCookie.get(Key.userInfoKey)).uid : null
       // 发送请求获取用户拥有的菜单权限数据
       if (userId) {
         console.log('userId', userId)

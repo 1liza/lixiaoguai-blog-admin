@@ -60,7 +60,7 @@ router.beforeEach(async(to, from, next) => {
               }
             } */
       // +++ 3. 获取用户信息 +++
-      const hasGetUserInfo = PcCookie.get(Key.userInfoKey)
+      const hasGetUserInfo = JSON.parse(PcCookie.get(Key.userInfoKey))
       if (hasGetUserInfo) {
         // 有，跳转目标路由
         // 是否已经初始化过权限菜单 ++++

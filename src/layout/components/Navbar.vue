@@ -62,7 +62,7 @@ export default {
 
     avatar() {
       return PcCookie.get(Key.userInfoKey)
-        ? PcCookie.get(Key.userInfoKey).imageUrl
+        ? JSON.parse(PcCookie.get(Key.userInfoKey)).imageUrl
         : ''
     }
   },
