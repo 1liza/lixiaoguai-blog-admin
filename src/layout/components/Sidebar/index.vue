@@ -33,7 +33,7 @@ export default {
         return this.$store.getters.sidebar
         },
         menuList() {
-        return this.$store.getters.menuList
+        return this.$store.getters.menuList123
         },
     */
     routes() {
