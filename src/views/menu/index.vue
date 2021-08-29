@@ -98,9 +98,14 @@ export default {
   },
   methods: {
     fetchData() {
+      console.log('刷新')
       api.getList(this.query).then(response => {
         this.list = response.data
       })
+    },
+    reload() {
+      this.query = {}
+      this.fetchData()
     },
     handleAdd(id) {
       console.log('新增', id)
@@ -110,9 +115,29 @@ export default {
     },
     handleEdit(id) {
       console.log('编辑', id)
+      api.getById(id).then(response => {
+        if (response.code === 20000) {
+          this.edit.formData = response.data
+          this.edit.visible = true
+          this.edit.title = '编辑'
+        }
+      })
     },
     handleDelete(id) {
       console.log('删除', id)
+      this.$confirm('确认删除这条记录吗？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        api.deleteById(id).then(response => {
+          this.$message({
+            type: response.code === 20000 ? 'success' : 'error',
+            message: response.message
+          })
+          this.fetchData()
+        }).catch(() => {})
+      })
     },
     remoteClose() {
       this.edit.visible = false
