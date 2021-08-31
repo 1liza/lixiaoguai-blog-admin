@@ -143,7 +143,12 @@ https://blog.csdn.net/niaonao/article/details/98593460
 http://www.imooc.com/article/246860
 https://juejin.cn/post/6844903844573347854
 
+<<<<<<< HEAD
 ### todo
 - submitData()为什么必须是异步，后面也没有then
 使用异步方法提交数据
 https://juejin.cn/post/6844903960910757902
+=======
+### TODO
+为什么系统管理里面的菜单管理增加选项不需要提交后台？
+>>>>>>> 45231314ab288fd6e7f075ca4a12c52a0cc0cdc9

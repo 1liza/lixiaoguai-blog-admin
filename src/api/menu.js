@@ -9,4 +9,16 @@ export default {
       data: query
     })
   },
+  getById(id) {
+    return request({
+      url: `/system/menu/${id}`,
+      method: 'get'
+    })
+  },
+  deleteById(id) {
+    return request({
+      url: `/system/menu/${id}`,
+      method: 'delete'
+    })
+  }
 }
