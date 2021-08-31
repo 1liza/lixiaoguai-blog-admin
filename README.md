@@ -142,3 +142,8 @@ https://blog.csdn.net/niaonao/article/details/98593460
 
 http://www.imooc.com/article/246860
 https://juejin.cn/post/6844903844573347854
+
+### todo
+- submitData()为什么必须是异步，后面也没有then
+使用异步方法提交数据
+https://juejin.cn/post/6844903960910757902

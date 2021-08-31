@@ -52,7 +52,7 @@
         label="广告图片"
       >
         <template slot-scope="scope">
-          <el-image :src="scope.row.imageUrl" style="width: 90px;height: 60px"/>
+          <el-image :src="scope.row.imageUrl" style="width: 90px;height: 60px" />
         </template>
       </el-table-column>
       <!--      广告链接-->
@@ -115,7 +115,7 @@
       :visible="edit.visible"
       :form-data="edit.formData"
       :remote-close="remoteClose"
-      :oldImageUrl="edit.oldImageUrl"
+      :old-image-url="edit.oldImageUrl"
     />
 
   </div>

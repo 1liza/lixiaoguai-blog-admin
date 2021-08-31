@@ -31,3 +31,38 @@ export function getUserMenuList(userId) {
     method: 'get'
   })
 }
+
+export function getList(query, current = 1, size = 20) {
+  return request({
+    url: '/system/user/search',
+    method: 'post',
+    data: { ...query, current, size }
+  })
+}
+
+export function add(data) {
+  return request({
+    url: `/system/user`,
+    method: 'post',
+    data
+  })
+}
+export function getById(id) {
+  return request({
+    url: `/system/user/${id}`, // 反单引号 ``
+    method: 'get'
+  })
+}
+export function update(data) {
+  return request({
+    url: `/system/user`,
+    method: 'put', // put 方式提交
+    data
+  })
+}
+export function deleteById( id ) {
+  return request({
+    url: `/system/user/${id}`, // 反单引号 ``
+    method: 'delete', // delete 方式提交
+  })
+}
