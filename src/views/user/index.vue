@@ -95,17 +95,31 @@
       :title="edit.title"
       :form-data="edit.formData"
       :remote-close="this.remoteClose"
-      />
+    />
+
+    <el-dialog title="设置角色" :visible.sync="role.visible" width="65%">
+      <role :role-ids="role.roleIds" @saveUserRole="saveUserRole" />
+    </el-dialog>
+
+    <password
+      title="修改密码"
+      :user-id="pwd.userId"
+      :visible="pwd.visible"
+      :remote-close="remotePwdClose"
+    />
   </div>
 </template>
 
 <script>
 import * as api from '@/api/user'
 import edit from './Edit'
-
+import role from '../role'
+import password from './password'
 export default {
   components: {
-    edit
+    edit,
+    role,
+    password
   },
   data() {
     return {
@@ -120,7 +134,22 @@ export default {
         visible: false,
         title: '',
         formData: {}
+      },
+      role: {
+        userId: null,
+        roleIds: [],
+        visible: false
+      },
+      pwd: { // ++++
+        visible: false,
+        userId: null
       }
+    }
+  },
+  watch: { // 监听 roleIds 变化 +++
+    roleIds() {
+      this.query = [] // 清空查询框数据
+      this.queryData() // 重新获取数据
     }
   },
   created() {
@@ -187,11 +216,46 @@ export default {
         this.fetchData()
       }).catch(() => {})
     },
-    handleRole() {
-
+    handleRole(id) {
+      // 用户id，后面要用
+      this.role.userId = id // +++
+      // 查询用户当前拥有角色ids
+      api.getRoleIdsByUserId(id).then(response => { // +++
+        console.log(response.data)
+        this.role.roleIds = response.data
+        // 查询后，打开窗口
+        this.role.visible = true
+      })
     },
-    handlePwd() {
-
+    handlePwd(id) {
+      // 要修改密码的用户id
+      this.pwd.userId = id
+      // 弹出窗口
+      this.pwd.visible = true
+    },
+    saveUserRole(roleIds) {
+      // 1. 保存用户角色信息
+      api.saveUserRole(this.role.userId, roleIds).then(response => {
+        if (response.code === 20000) {
+          // 提交成功, 关闭窗口, 刷新列表
+          this.$message({
+            message: '保存成功',
+            type: 'success'
+          })
+          // 关闭窗口
+          this.role.visible = false
+        } else {
+          this.$message({
+            type: 'error',
+            message: '保存失败'
+          })
+        }
+      })
+    },
+    remotePwdClose() { // +++
+      this.pwd.userId = null
+      this.pwd.visible = false
+      this.fetchData()
     }
   }
 }

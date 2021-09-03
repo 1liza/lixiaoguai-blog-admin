@@ -143,12 +143,14 @@ https://blog.csdn.net/niaonao/article/details/98593460
 http://www.imooc.com/article/246860
 https://juejin.cn/post/6844903844573347854
 
-<<<<<<< HEAD
-### todo
-- submitData()为什么必须是异步，后面也没有then
-使用异步方法提交数据
+### 使用异步方法提交数据
+axios是基于promise的HTTP代理，所以请求都是异步实现
+但是在提交数据的时候，我们需要同步，也就是提交成功之后在关闭网页，为了实现同步，我们需要await阻塞异步
 https://juejin.cn/post/6844903960910757902
-=======
+
+### :visible.sync && v-model
+我们在实现双向绑定时经常使用v-model,这里看来，使用.sync也是可以的，不同在于v-model触发的是父组件的input事件，.sync触发的是父组件的update事件
+
 ### TODO
 为什么系统管理里面的菜单管理增加选项不需要提交后台？
->>>>>>> 45231314ab288fd6e7f075ca4a12c52a0cc0cdc9
+

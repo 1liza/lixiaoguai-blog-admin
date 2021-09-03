@@ -34,6 +34,7 @@
   </el-dialog>
 </template>
 <script>
+import api from '@/api/role'
 export default {
 // 接收父组件传递的属性
   props: {
@@ -47,16 +48,33 @@ export default {
     },
     formData: { // 表单数据
       type: Object,
-      default: {}
+      default: () => {}
     },
     remoteClose: Function // 用于关闭窗口
   },
   methods: {
     // 关闭弹窗
     handleClose(done) {
+      this.$refs['formData'].resetFields()
+      this.remoteClose()
     },
     // 提交表单
     submitForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.submitData()
+        } else {
+          return false
+        }
+      })
+    },
+    async submitData() {
+      let response = null
+      if (this.formData.id) {
+        response = await api.updateList(this.formData)
+      } else {
+        response = await api.addList(this.formData)
+      }
     }
   }
 }

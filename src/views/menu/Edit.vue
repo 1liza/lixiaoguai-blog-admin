@@ -88,6 +88,7 @@ export default {
       this.remoteClose()
     },
     handleClose() {
+      this.$refs['formData'].resetFields()
       this.remoteClose()
     }
   }

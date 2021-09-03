@@ -60,9 +60,29 @@ export function update(data) {
     data
   })
 }
-export function deleteById( id ) {
+export function deleteById(id) {
   return request({
     url: `/system/user/${id}`, // 反单引号 ``
-    method: 'delete', // delete 方式提交
+    method: 'delete' // delete 方式提交
+  })
+}
+export function getRoleIdsByUserId(id) {
+  return request({
+    url: `/system/user/${id}/role/ids`, // 反单引号 ``
+    method: 'get'
+  })
+}
+export function saveUserRole(id, roleIds) {
+  return request({
+    url: `/system/user/${id}/role/save`,
+    method: 'post',
+    data: roleIds
+  })
+}
+export function updatePassword(data) {
+  return request({
+    url: `/system/user/password`,
+    method: 'put',
+    data
   })
 }
